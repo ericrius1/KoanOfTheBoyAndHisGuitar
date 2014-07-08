@@ -1,0 +1,11 @@
+.poem{
+	position: absolute;
+	color: white;
+	top: 40%;
+  left: 37%;
+	font-size: 20px;
+	text-align: center;
+  font-family: Verdana;
+  opacity: 0.8;
+  color: #892AA3;
+}
