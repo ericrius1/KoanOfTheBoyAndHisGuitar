@@ -1,11 +1,11 @@
 
 varying vec2 vUv;
-uniform vec2 scale;
-uniform vec2 offset;
+uniform vec2 vScale;
+uniform vec2 vOffset;
 
 void main( void ) {
 
-  vUv = uv * scale + offset;
+  vUv = (uv * vScale) + vOffset;
   gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
 }

@@ -1,9 +1,6 @@
 var Field = function(){
 
   
-  // var fieldMesh = new THREE.Mesh(new THREE.PlaneGeometry(100, 100));
-  // fieldMesh.rotation.x = -Math.PI/2;
-  // scene.add(fieldMesh);
 
   var uniforms = {
     "fTime" :  {type : "f", value: 1},
@@ -28,7 +25,7 @@ var Field = function(){
   var noiseMaterial = new THREE.ShaderMaterial({
     uniforms: uniforms,
     vertexShader: shaders.vertexShaders.noise,
-    fragmentShader: shaders.vertexShaders.noise,
+    fragmentShader: shaders.fragmentShaders.noise,
     lights: false
   });
 
@@ -37,7 +34,17 @@ var Field = function(){
   noiseQuadTarget.position.z = -500;
   noiseScene.add(noiseQuadTarget);
 
+  var fieldMat = new THREE.MeshBasicMaterial({map: noiseMap});
+  var fieldMesh = new THREE.Mesh(new THREE.PlaneGeometry(60, 60, 2, 2), fieldMat);
+  fieldMesh.rotation.x = -Math.PI/2;
+  scene.add(fieldMesh);
+
   this.getMesh = function(){
     return fieldMesh;
   }  
+
+  this.update = function(){
+    noiseMaterial.uniforms['fTime'].value += .001;
+    renderer.render(noiseScene, noiseCameraOrtho, noiseMap, true)
+  }
 };

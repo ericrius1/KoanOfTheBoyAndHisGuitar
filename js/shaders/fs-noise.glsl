@@ -8,7 +8,7 @@
 //               Distributed under the MIT License. See LICENSE file.
 //
 
-uniform float time;
+uniform float fTime;
 varying vec2 vUv;
 
 vec4 permute( vec4 x ) {
@@ -116,7 +116,7 @@ float surface3( vec3 coord ) {
 
 void main( void ) {
 
-  vec3 coord = vec3( vUv, -time );
+  vec3 coord = vec3( vUv, -fTime );
   float n = surface3( coord );
 
   gl_FragColor = vec4( vec3( n, n, n ), 1.0 );

@@ -12,9 +12,10 @@ function init() {
   scene = new THREE.Scene();
 
 
-  camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
-  camera.position.z = 100;
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 2000);
+  camera.position.z = 40;
   camera.position.y = 10;
+  camera.position.x = 5;
   camera.lookAt(scene.position);
 
   renderer = new THREE.WebGLRenderer({
@@ -102,12 +103,13 @@ function start() {
 
 
 function animate() {
+  requestAnimationFrame(animate);
   TWEEN.update();
-  // field.update();
   controls.update();
   grass.update();
+  
+  field.update();
   renderer.render(scene, camera);
-  requestAnimationFrame(animate);
 }
 
 function map(value, min1, max1, min2, max2) {

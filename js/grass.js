@@ -7,7 +7,7 @@ var Grass = function(groundMesh) {
   }
 
   var grassMaterial = new THREE.ShaderMaterial({
-    attributes: attributes,
+    attributes: grassAttributes,
     vertexShader: shaders.vertexShaders.lines,
     fragmentShader: shaders.fragmentShaders.lines
   });
@@ -28,7 +28,7 @@ var Grass = function(groundMesh) {
         var vertex = new THREE.Vector3(point.x, j/2, point.y);
         lineGeo.vertices.push(vertex);
         var nH = vertex.y/bladeHeight + 0.5
-        windArray.push(nh * nH * nH);
+        windArray.push(nH * nH * nH);
         if( j ===0 || j === bladeHeight -1){
           drawArray.push(0)
         }
