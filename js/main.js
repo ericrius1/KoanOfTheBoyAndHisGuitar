@@ -40,8 +40,8 @@ shaders.shaderSetLoaded = function() {
   }
 }
 
-shaders.load('vs-lines', 'lines', 'vertex');
-shaders.load('fs-lines', 'lines', 'fragment');
+shaders.load('vs-grass', 'grass', 'vertex');
+shaders.load('fs-grass', 'grass', 'fragment');
 shaders.load('vs-noise', 'noise', 'vertex');
 shaders.load('fs-noise', 'noise', 'fragment');
 

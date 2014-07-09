@@ -1,7 +1,7 @@
+var noiseMap;
 var Field = function(){
 
   
-
   var uniforms = {
     "fTime" :  {type : "f", value: 1},
     "vScale" : {type: "v2", value: new THREE.Vector2(1,1)},
@@ -9,7 +9,7 @@ var Field = function(){
   }
 
 
-  var noiseMap = new THREE.WebGLRenderTarget(256, 256, 
+  noiseMap = new THREE.WebGLRenderTarget(256, 256, 
     {
       minFilter: THREE.LinearMipmapLinearFilter, 
       magFilter: THREE.LinearFilter,
@@ -45,6 +45,7 @@ var Field = function(){
 
   this.update = function(){
     noiseMaterial.uniforms['fTime'].value += .001;
+    noiseMaterial.uniforms['vOffset'].value.x += 0.001;
     renderer.render(noiseScene, noiseCameraOrtho, noiseMap, true)
   }
 };
