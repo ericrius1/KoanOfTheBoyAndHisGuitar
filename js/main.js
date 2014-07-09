@@ -39,8 +39,10 @@ shaders.shaderSetLoaded = function() {
   }
 }
 
-shaders.load('fs-lines', 'lines', 'fragment');
 shaders.load('vs-lines', 'lines', 'vertex');
+shaders.load('fs-lines', 'lines', 'fragment');
+shaders.load('vs-noise', 'noise', 'vertex');
+shaders.load('fs-noise', 'noise', 'fragment');
 
 window.addEventListener('resize', onWindowResize);
 

@@ -44,7 +44,7 @@ var Grass = function(groundMesh) {
     //copy array values into attribute array
     for(var v = 0; v < vertices.length; v++){
       values_draw [ v ] = drawArray[ v ];
-      values_ wind [ v ] = windArray[ v ];
+      values_wind [ v ] = windArray[ v ];
     }
   }
   this.update = function() {
