@@ -105,11 +105,11 @@ function init() {
   document.body.appendChild(renderer.domElement);
   // field = new Field();
 
-  grass = new Grass();
-
   var plane = new THREE.Mesh(new THREE.PlaneGeometry(100, 100));
   plane.rotation.x = -Math.PI/2;
   scene.add(plane)
+
+  grass = new Grass(plane);
 
 }
 

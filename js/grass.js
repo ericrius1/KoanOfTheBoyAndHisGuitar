@@ -1,4 +1,4 @@
-var Grass = function() {
+var Grass = function(groundMesh) {
   var drawArray = [];
   var lineGeo = new THREE.Geometry();
   var pv = function(x, y, z) {
@@ -21,10 +21,12 @@ var Grass = function() {
 
 
   function createBlades() {
-    for (var i = 0; i < 10; i++) {
+    var points = THREE.GeometryUtils.randomPointsInGeometry(groundMesh.geometry, 100);
+    for (var i = 0; i < points.length; i++) {
       var bladeHeight = _.random(4, 6);
+      var point = points[i];
       for (var j = 0; j < bladeHeight; j++) {
-        pv(i * 10, j, 0);
+        pv(point.x, j, point.y);
         if( j ===0 || j === bladeHeight -1){
           drawArray.push(0)
         }
