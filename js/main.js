@@ -1,10 +1,37 @@
 //felt somehow... fragmented
 
-var camera, renderer, projector, scene, controls, clock, field, grass;
+var camera, renderer, scene, controls, clock, field, grass;
 var line;
 var randFloat = THREE.Math.randFloat;
 var itemsToLoad = 2;
 var shaders = new ShaderLoader('js/shaders');
+
+function init() {
+  clock = new THREE.Clock();
+
+  scene = new THREE.Scene();
+
+
+  camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
+  camera.position.z = 100;
+  camera.position.y = 10;
+  camera.lookAt(scene.position);
+
+  renderer = new THREE.WebGLRenderer({
+    antialias: true
+  });
+  renderer.setSize(w, h);
+  renderer.autoClear = false;
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+
+
+  document.body.appendChild(renderer.domElement);
+  field = new Field();
+
+  grass = new Grass(field.getMesh());
+
+}
 shaders.shaderSetLoaded = function() {
   itemsToLoad--;
   if (itemsToLoad === 0) {
@@ -71,55 +98,13 @@ function start() {
   animate();
 }
 
-function init() {
-  clock = new THREE.Clock();
-
-  scene = new THREE.Scene();
-
-
-  camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
-  camera.position.z = 100;
-  camera.position.y = 10;
-  camera.lookAt(scene.position);
-  projector = new THREE.Projector();
-
-  renderer = new THREE.WebGLRenderer({
-    // antialias: false
-  });
-  renderer.setSize(w, h);
-  renderer.autoClear = false;
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-  // postprocessing
-  var renderModel = new THREE.RenderPass(scene, camera);
-  var effectBloom = new THREE.BloomPass(0.2);
-  var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
-  effectCopy.renderToScreen = true;
-
-  composer = new THREE.EffectComposer(renderer);
-
-  composer.addPass(renderModel);
-  composer.addPass(effectBloom);
-  composer.addPass(effectCopy);
-
-  document.body.appendChild(renderer.domElement);
-  // field = new Field();
-
-  var plane = new THREE.Mesh(new THREE.PlaneGeometry(100, 100));
-  plane.rotation.x = -Math.PI/2;
-  scene.add(plane)
-
-  grass = new Grass(plane);
-
-}
 
 function animate() {
   TWEEN.update();
   // field.update();
   controls.update();
   grass.update();
-  renderer.clear();
-  composer.render(0.01);
+  renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
 

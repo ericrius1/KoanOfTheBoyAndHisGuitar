@@ -1,9 +1,6 @@
 var Grass = function(groundMesh) {
   var drawArray = [];
   var lineGeo = new THREE.Geometry();
-  var pv = function(x, y, z) {
-    lineGeo.vertices.push(new THREE.Vector3(x, y, z));
-  }
 
   var attributes = {
     draw: {type: 'f', value: []}
@@ -26,7 +23,8 @@ var Grass = function(groundMesh) {
       var bladeHeight = _.random(4, 6);
       var point = points[i];
       for (var j = 0; j < bladeHeight; j++) {
-        pv(point.x, j, point.y);
+        var vertex = new THREE.Vector3(point.x, j/2, point.y);
+        lineGeo.vertices.push(vertex);
         if( j ===0 || j === bladeHeight -1){
           drawArray.push(0)
         }
