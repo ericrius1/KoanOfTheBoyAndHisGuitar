@@ -1,143 +1,46 @@
 var Grass = function() {
-
-  var delta, time, oldTime;
-
-  var uniforms, lines, uniforms2, sphere;
+  var drawArray = [];
+  var lineGeo = new THREE.Geometry();
+  var pv = function(x, y, z) {
+    lineGeo.vertices.push(new THREE.Vector3(x, y, z));
+  }
 
   var attributes = {
-    draw: {
-      type: 'f',
-      value: []
-    },
-    lng: {
-      type: 'f',
-      value: []
-    },
-    seed: {
-      type: 'f',
-      value: []
-    },
-    customColor: {
-      type:'c',
-      value: []
-    }
-  };
-
-  uniforms = {
-    color: {
-      type: "c",
-      value: new THREE.Color(0xffffff)
-    },
-    globalTime: {
-      type: 'f',
-      value: 0.0
-    }
+    draw: {type: 'f', value: []}
   }
+
   var shaderMaterial = new THREE.ShaderMaterial({
-    uniforms: uniforms,
     attributes: attributes,
     vertexShader: shaders.vertexShaders.lines,
     fragmentShader: shaders.fragmentShaders.lines
   });
+  createBlades();
 
-  shaderMaterial.linewidth = 1;
-
-  var lineGeo = new THREE.Geometry();
-  var radius = 40;
-
-  var lngArray = [];
-  var seedArray = [];
-  var colorArray = [];
-  var drawArray = [];
-
-  var numOfPoints = 15000;
-
-  var points = pointsOnSphere(numOfPoints);
-
-  for (var i = 0; i < numOfPoints; i++) {
-    var num = 10 +  Math.floor(Math.random() * 2);
-
-    var base = points[i];
-    base.multiplyScalar(radius);
-    var seed =1;
-
-    var lat = 90 - (Math.acos(-base.y / radius)) * 180 / Math.PI;
-    var lon = ((270 + (Math.atan(-base.x, -base.z)) * 180 / Math.PI) % 360) - 180;
-
-    var pixel_x = Math.floor((canvas.width / 360) * (lon+180));
-    var pixel_y = Math.floor((canvas.height / 180) * (lat + 90));
-
-    var c = getPixel(pixel_x, pixel_y);
-    console.log(num)
-    for (var j = 0; j < num; j++) {
-      var vertex = new THREE.Vector3().copy(base);
-      var lng = radius + (j);
-      var color = new THREE.Color(0xffffff);
-      var black = (j / num);
-      color.setRGB((c.r / 255) * black, (c.g / 255) * black, (c.b / 255) * black);
-      vertex.setLength(lng);
-      lineGeo.vertices.push(vertex);
-      colorArray.push(color);
-      seedArray.push(seed);
-      lngArray.push(lng);
-      if (j == num - 1 || j == 0) {
-        drawArray.push(0);
-      } else {
-        drawArray.push(1);
-      }
-    }
-  }
-
-  var vertices = lineGeo.vertices;
-  var values_color = attributes.customColor.value;
-  var values_lng = attributes.lng.value;
-  var values_seed = attributes.seed.value;
-  var values_draw = attributes.draw.value;
-
-  for (var v = 0; v < vertices.length; v++) {
-    values_lng[v] = lngArray[v];
-    values_seed[v] = seedArray[v];
-    values_draw[v] = drawArray[v];
-    values_color[v] = colorArray[v];
-
-  }
-
-  lines = new THREE.Line(lineGeo, shaderMaterial, THREE.LineStrip);
+  var lines = new THREE.Line(lineGeo, shaderMaterial, THREE.LineStrip);
   scene.add(lines);
 
 
-
-  function pointsOnSphere(n) {
-    var upts = new Array();
-    var inc = Math.PI * (3 - Math.sqrt(5));
-    var off = 2.0 / n;
-    var x, y, z;
-    var r;
-    var phi;
-
-    for (var k = 0; k < n; k++) {
-      y = k * off - 1 + (off / 2);
-      r = Math.sqrt(1 - y * y);
-      phi = k * inc;
-      x = Math.cos(phi) * r;
-      z = Math.sin(phi) * r;
-      upts.push(new THREE.Vector3(x, y, z));
+  function createBlades() {
+    for (var i = 0; i < 10; i++) {
+      var bladeHeight = _.random(4, 6);
+      for (var j = 0; j < bladeHeight; j++) {
+        pv(i * 10, j, 0);
+        if( j ===0 || j === bladeHeight -1){
+          drawArray.push(0)
+        }
+        else{
+          drawArray.push(1);
+        }
+      }
     }
 
-    return upts;
+    var vertices = lineGeo.vertices;
+    var values_draw = attributes.draw.value;
+    for(var v = 0; v < vertices.length; v++){
+      values_draw [ v ] = drawArray[v]; 
+    }
   }
-
-
-
   this.update = function() {
-    time = new Date().getTime();
-    delta = time - oldTime;
-    oldTime = time;
 
-    if(isNaN(delta) || delta > 1000 || delta == 0){
-      delta = 1000/60;
-    }
-
-    uniforms.globalTime.value += delta * .0005 ;
   }
 }

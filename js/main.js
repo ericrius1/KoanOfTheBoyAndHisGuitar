@@ -1,4 +1,4 @@
-
+//felt somehow... fragmented
 
 var camera, renderer, projector, scene, controls, clock, field, grass;
 var line;
@@ -76,8 +76,10 @@ function init() {
 
   scene = new THREE.Scene();
 
+
   camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
   camera.position.z = 100;
+  camera.position.y = 10;
   camera.lookAt(scene.position);
   projector = new THREE.Projector();
 
@@ -86,10 +88,11 @@ function init() {
   });
   renderer.setSize(w, h);
   renderer.autoClear = false;
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   // postprocessing
   var renderModel = new THREE.RenderPass(scene, camera);
-  var effectBloom = new THREE.BloomPass(1.4);
+  var effectBloom = new THREE.BloomPass(0.2);
   var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
   effectCopy.renderToScreen = true;
 
@@ -100,15 +103,20 @@ function init() {
   composer.addPass(effectCopy);
 
   document.body.appendChild(renderer.domElement);
-  field = new Field();
+  // field = new Field();
 
   grass = new Grass();
+
+  var plane = new THREE.Mesh(new THREE.PlaneGeometry(100, 100));
+  plane.rotation.x = -Math.PI/2;
+  scene.add(plane)
 
 }
 
 function animate() {
   TWEEN.update();
-  field.update();
+  // field.update();
+  controls.update();
   grass.update();
   renderer.clear();
   composer.render(0.01);
