@@ -1,6 +1,6 @@
 var Grass = function(groundMesh) {
-  createBlades();
   var windDirection = new THREE.Vector3(0.9, 0.1, 0.1);
+  createBlades();
 
 
 
@@ -51,6 +51,7 @@ var Grass = function(groundMesh) {
       "tWindForce": {type: "t", value: noiseMap},
       "windScale": {type : 'f', value: 1.0}
     }
+    debugger;
     var grassMaterial = new THREE.ShaderMaterial({
       uniforms: uniforms,
       attributes: attributes,
