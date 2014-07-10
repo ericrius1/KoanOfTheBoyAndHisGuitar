@@ -46,7 +46,7 @@ var Grass = function(groundMesh) {
     }
     var uniforms = {
       'windMin': {type: "v2", value: new THREE.Vector2(-30, -30)},
-      'windSize': {type: 'v2', value: new THREE.Vector2(60,60)},
+      'windSize': {type: 'v2', value: new THREE.Vector2(fieldSize,fieldSize)},
       "windDirection": {type: 'v3', value: windDirection},
       "tWindForce": {type: "t", value: noiseMap},
       "windScale": {type : 'f', value: 1.0}

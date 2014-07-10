@@ -35,7 +35,7 @@ var Field = function(){
   noiseScene.add(noiseQuadTarget);
 
   var fieldMat = new THREE.MeshBasicMaterial({map: noiseMap});
-  var fieldMesh = new THREE.Mesh(new THREE.PlaneGeometry(60, 60, 2, 2), fieldMat);
+  var fieldMesh = new THREE.Mesh(new THREE.PlaneGeometry(fieldSize, fieldSize, 2, 2), fieldMat);
   fieldMesh.rotation.x = -Math.PI/2;
   scene.add(fieldMesh);
 

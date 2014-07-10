@@ -5,6 +5,7 @@ var line;
 var randFloat = THREE.Math.randFloat;
 var itemsToLoad = 2;
 var shaders = new ShaderLoader('js/shaders');
+var fieldSize = 60;
 
 function init() {
   clock = new THREE.Clock();
@@ -29,7 +30,6 @@ function init() {
 
   document.body.appendChild(renderer.domElement);
   field = new Field();
-
   grass = new Grass(field.getMesh());
 
 }
@@ -107,7 +107,6 @@ function animate() {
   TWEEN.update();
   controls.update();
   grass.update();
-  
   field.update();
   renderer.render(scene, camera);
 }
