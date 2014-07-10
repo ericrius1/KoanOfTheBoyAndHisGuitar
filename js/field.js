@@ -1,7 +1,9 @@
 var noiseMap;
-var Field = function(){
+var windDirection = new THREE.Vector3(1, 1, 1);
 
-  
+var Field = function(){
+  var noiseSpeed = 0.046;
+  var noiseOffsetSpeed = 0.11;
   var uniforms = {
     "fTime" :  {type : "f", value: 1},
     "vScale" : {type: "v2", value: new THREE.Vector2(1,1)},
@@ -44,8 +46,10 @@ var Field = function(){
   }  
 
   this.update = function(){
-    noiseMaterial.uniforms['fTime'].value += .001;
-    noiseMaterial.uniforms['vOffset'].value.x += 0.001;
+    delta = clock.getDelta();
+    noiseMaterial.uniforms['fTime'].value += delta * noiseSpeed;
+    noiseMaterial.uniforms['vOffset'].value.x -= (delta * noiseOffsetSpeed) * windDirection.x;
+    noiseMaterial.uniforms['vOffset'].value.y += (delta * noiseOffsetSpeed) * windDirection.z;
     renderer.render(noiseScene, noiseCameraOrtho, noiseMap, true)
   }
 };

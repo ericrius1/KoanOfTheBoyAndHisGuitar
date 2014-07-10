@@ -1,22 +1,18 @@
 var Grass = function(groundMesh) {
-  var windDirection = new THREE.Vector3(0.9, 0.1, 0.1);
   createBlades();
-
-
-
   function createBlades() {
     var lineGeo = new THREE.Geometry();
     var grassMaterial = getGrassMaterial();
     var drawArray = [];
     var windArray = [];
-    var points = THREE.GeometryUtils.randomPointsInGeometry(groundMesh.geometry, 100);
+    var points = THREE.GeometryUtils.randomPointsInGeometry(groundMesh.geometry, 30000);
     for (var i = 0; i < points.length; i++) {
       var bladeHeight = _.random(4, 6);
       var point = points[i];
       for (var j = 0; j < bladeHeight; j++) {
         var vertex = new THREE.Vector3(point.x, j/2, point.y);
         lineGeo.vertices.push(vertex);
-        var nH = vertex.y/bladeHeight + 0.5
+        var nH = vertex.y/bladeHeight + 0.5;
         windArray.push(nH * nH * nH);
         if( j ===0 || j === bladeHeight -1){
           drawArray.push(0)
@@ -49,9 +45,8 @@ var Grass = function(groundMesh) {
       'windSize': {type: 'v2', value: new THREE.Vector2(fieldSize,fieldSize)},
       "windDirection": {type: 'v3', value: windDirection},
       "tWindForce": {type: "t", value: noiseMap},
-      "windScale": {type : 'f', value: 1.0}
+      "windScale": {type : 'f', value: 2.0}
     }
-    debugger;
     var grassMaterial = new THREE.ShaderMaterial({
       uniforms: uniforms,
       attributes: attributes,
@@ -63,6 +58,5 @@ var Grass = function(groundMesh) {
 
   }
   this.update = function() {
-
   }
 }
