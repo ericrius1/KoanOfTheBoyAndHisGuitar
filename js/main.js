@@ -1,6 +1,6 @@
 //felt somehow... fragmented
 
-var camera, renderer, scene, controls, clock, field, grass;
+var camera, renderer, scene, controls, clock, field, grass, composer;
 var line;
 var randFloat = THREE.Math.randFloat;
 var itemsToLoad = 2;
@@ -26,7 +26,16 @@ function init() {
   renderer.autoClear = false;
   controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+  var renderModel = new THREE.RenderPass(scene, camera);
+  var effectBloom = new THREE.BloomPass(1.1);
+  var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
+  effectCopy.renderToScreen = true;
 
+  composer = new THREE.EffectComposer(renderer);
+
+  composer.addPass(renderModel);
+  composer.addPass(effectBloom);
+  composer.addPass(effectCopy);
 
   document.body.appendChild(renderer.domElement);
   field = new Field();
@@ -108,7 +117,7 @@ function animate() {
   controls.update();
   grass.update();
   field.update();
-  renderer.render(scene, camera);
+  composer.render(0.01);
 }
 
 function map(value, min1, max1, min2, max2) {
