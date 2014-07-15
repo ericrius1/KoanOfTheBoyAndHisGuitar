@@ -29,6 +29,8 @@ function init() {
   var renderModel = new THREE.RenderPass(scene, camera);
   var effectBloom = new THREE.BloomPass(1.1);
   var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
+  // var effectEricrius= new THREE.EricriusPass(new THREE.Vector2(0,0), 0.5, 0.8);
+  // effectEricrius.renderToScreen = true;
   effectCopy.renderToScreen = true;
 
   composer = new THREE.EffectComposer(renderer);
@@ -36,6 +38,7 @@ function init() {
   composer.addPass(renderModel);
   composer.addPass(effectBloom);
   composer.addPass(effectCopy);
+  // composer.addPass(effectEricrius);
 
   document.body.appendChild(renderer.domElement);
   field = new Field();

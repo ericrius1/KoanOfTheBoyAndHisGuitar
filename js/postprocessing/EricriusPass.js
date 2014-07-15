@@ -31,7 +31,7 @@ THREE.EricriusPass = function(center, angle, scale) {
 THREE.EricriusPass.prototype = {
   render: function(renderer, writeBuffer, readBuffer, delta) {
     this.uniforms['tDiffuse'].value = readBuffer;
-    thtis.uniforms['tSize'].value.set(readBuffer.eidth, readBuffer.height);
+    this.uniforms['tSize'].value.set(readBuffer.width, readBuffer.height);
 
     this.quad.material = this.material;
 
