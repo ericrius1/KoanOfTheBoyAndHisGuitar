@@ -4,7 +4,8 @@ THREE.EricriusShader = {
     "tSize": {type: "v2", value: new THREE.Vector2(256, 256)},
     "center": {type: "v2", value: new THREE.Vector2(0.5, 0.5)},
     "angle": {type: 'f', value: 1.57},
-    "scale": {type: 'f', value: 1.0}
+    "scale": {type: 'f', value: 1.0},
+    'box': {type: 'v2', value: new THREE.Vector2(-5, 5)}
   },
 
   vertexShader: [
@@ -45,5 +46,17 @@ THREE.EricriusShader = {
 
       "}"
 
+  ].join("\n"),
+
+  fragmentShaderTest: [
+    "varying vec2 vUv;",
+
+    "uniform sampler2D tDiffuse;",
+
+    "void main() {",
+      "vec4 color = texture2D(tDiffuse, vUv);",
+      "gl_FragColor = color;",
+
+    "}"
   ].join("\n")
 }

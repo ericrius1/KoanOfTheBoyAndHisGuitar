@@ -12,7 +12,7 @@ THREE.EricriusPass = function(center, angle, scale) {
   this.material = new THREE.ShaderMaterial({
     uniforms: this.uniforms,
     vertexShader: shader.vertexShader,
-    fragmentShader: shader.fragmentShader
+    fragmentShader: shader.fragmentShaderTest
   });
 
   this.enabled = true;
