@@ -1,13 +1,10 @@
-THREE.EricriusPass = function(center, angle, scale) {
+THREE.EricriusPass = function() {
   if(THREE.EricriusShader === undefined){
     console.error("THREE.EricriusPass relies on THREE.EricriusShader!");
   }
   var shader = THREE.EricriusShader;
   this.uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-  if ( center !== undefined ) this.uniforms[ "center" ].value.copy( center );
-  if ( angle !== undefined ) this.uniforms[ "angle"].value = angle;
-  if ( scale !== undefined ) this.uniforms[ "scale"].value = scale;
 
   this.material = new THREE.ShaderMaterial({
     uniforms: this.uniforms,

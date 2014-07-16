@@ -54,6 +54,7 @@ var Grass = function(groundMesh) {
       fragmentShader: shaders.fragmentShaders.grass
     });
 
+
     return grassMaterial;
 
   }
