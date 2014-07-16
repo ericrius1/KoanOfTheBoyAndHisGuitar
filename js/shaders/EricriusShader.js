@@ -54,6 +54,9 @@ THREE.EricriusShader = {
     "uniform sampler2D tDiffuse;",
 
     "void main() {",
+      "if(vUv.x){",
+        "discard;",
+      "}",
       "vec4 color = texture2D(tDiffuse, vUv);",
       "gl_FragColor = color;",
 

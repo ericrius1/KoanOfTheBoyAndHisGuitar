@@ -56,6 +56,7 @@ shaders.load('vs-grass', 'grass', 'vertex');
 shaders.load('fs-grass', 'grass', 'fragment');
 shaders.load('vs-noise', 'noise', 'vertex');
 shaders.load('fs-noise', 'noise', 'fragment');
+shaders.load('fs-blobs', 'blobs', 'fragment');
 
 window.addEventListener('resize', onWindowResize);
 
