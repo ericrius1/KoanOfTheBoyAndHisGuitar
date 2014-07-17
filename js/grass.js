@@ -1,11 +1,12 @@
 var Grass = function(groundMesh) {
   createBlades();
   function createBlades() {
+    var numBlades = 10000;
     var lineGeo = new THREE.Geometry();
     var grassMaterial = getGrassMaterial();
     var drawArray = [];
     var windArray = [];
-    var points = THREE.GeometryUtils.randomPointsInGeometry(groundMesh.geometry, 3000);
+    var points = THREE.GeometryUtils.randomPointsInGeometry(groundMesh.geometry, numBlades);
     for (var i = 0; i < points.length; i++) {
       var bladeHeight = _.random(4, 6);
       var point = points[i];
@@ -54,7 +55,7 @@ var Grass = function(groundMesh) {
       fragmentShader: shaders.fragmentShaders.grass
     });
 
-
+    grassMaterial.linewidth = 2;
     return grassMaterial;
 
   }

@@ -1,11 +1,15 @@
 //felt somehow... fragmented
 
-var camera, renderer, scene, controls, clock, field, grass, composer;
+//New moon, so dark.
+//Sleek mountain lion
+//Is even stumbling about
+
+var camera, renderer, scene, controls, clock, field, grass, moon, composer;
 var line;
 var randFloat = THREE.Math.randFloat;
 var itemsToLoad = 2;
 var shaders = new ShaderLoader('js/shaders');
-var fieldSize = 60;
+var fieldSize = 100;
 
 function init() {
   clock = new THREE.Clock();
@@ -20,30 +24,17 @@ function init() {
   camera.lookAt(scene.position);
 
   renderer = new THREE.WebGLRenderer({
-    antialias: true
+    antialias: false
   });
   renderer.setSize(w, h);
   renderer.autoClear = false;
   controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-  var renderModel = new THREE.RenderPass(scene, camera);
-  // var effectBloom = new THREE.BloomPass(.1);
-  // var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
-  //center, angle, scale
-  var effectEricrius= new THREE.EricriusPass();
-  effectEricrius.renderToScreen = true;
-  // effectCopy.renderToScreen = true;
-
-  composer = new THREE.EffectComposer(renderer);
-
-  composer.addPass(renderModel);
-  // composer.addPass(effectBloom);
-  composer.addPass(effectEricrius);
-  // composer.addPass(effectCopy);
 
   document.body.appendChild(renderer.domElement);
   field = new Field();
   grass = new Grass(field.getMesh());
+  moon = new Moon();
 
 }
 shaders.shaderSetLoaded = function() {
@@ -120,9 +111,10 @@ function animate() {
   requestAnimationFrame(animate);
   TWEEN.update();
   controls.update();
-  // grass.update();
-  // field.update();
-  composer.render(0.01);
+  grass.update();
+  field.update();
+  moon.update();
+  renderer.render(scene, camera);
 }
 
 function map(value, min1, max1, min2, max2) {
