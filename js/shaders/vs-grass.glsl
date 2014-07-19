@@ -7,8 +7,6 @@ uniform vec2 windMin;
 uniform vec3 windDirection;
 uniform sampler2D tWindForce;
 uniform float windScale;
-varying vec3 vWorldPosition;
-varying float vWindForce;
 
 void main() {
   vDraw = draw;
@@ -21,7 +19,7 @@ void main() {
 
   //The UV coordinate is used to lookup the windforce
   //from the Perlin noise wind texture.
-  vWindForce = texture2D(tWindForce, windUV).x;
+  float vWindForce = texture2D(tWindForce, windUV).x;
 
   //vWindForce value is composited with the vertex specific windFactor,
   //in order to compute how much deformation the vertex needs.
