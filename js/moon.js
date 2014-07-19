@@ -25,5 +25,6 @@ var Moon = function(){
 
 
   this.update = function(){
+    moonMat.uniforms['time'].value = 0.00025 * (Date.now() - startTime);
   }
 }

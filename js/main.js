@@ -10,7 +10,7 @@ var randFloat = THREE.Math.randFloat;
 var itemsToLoad = 2;
 var shaders = new ShaderLoader('js/shaders');
 var fieldSize = 100;
-
+var startTime = Date.now();
 function init() {
   clock = new THREE.Clock();
 
