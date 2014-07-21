@@ -8,7 +8,7 @@ var Grass = function(groundMesh) {
     var windArray = [];
     var points = THREE.GeometryUtils.randomPointsInGeometry(groundMesh.geometry, numBlades);
     for (var i = 0; i < points.length; i++) {
-      var bladeHeight = _.random(4, 6);
+      var bladeHeight = _.random(2, 3);
       var point = points[i];
       for (var j = 0; j < bladeHeight; j++) {
         var vertex = new THREE.Vector3(point.x, j/2, point.y);
@@ -55,7 +55,7 @@ var Grass = function(groundMesh) {
       fragmentShader: shaders.fragmentShaders.grass
     });
 
-    grassMaterial.linewidth = 2;
+    grassMaterial.linewidth = 3;
     return grassMaterial;
 
   }

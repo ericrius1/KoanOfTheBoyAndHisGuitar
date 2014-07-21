@@ -1,6 +1,6 @@
 var Moon = function(){
 
-  var moonGeo = new THREE.IcosahedronGeometry( 20, 4 );
+  var moonGeo = new THREE.IcosahedronGeometry( 4, 4 );
   var uniforms = {
     tExplosion: { 
       type: 't',
@@ -19,12 +19,12 @@ var Moon = function(){
     transparent: true
   })
   var moon = new THREE.Mesh(moonGeo, moonMat);
-  moon.position.set(0, 1, 0);
+  moon.position.set(-10, 10, 0);
   scene.add(moon);
 
 
 
   this.update = function(){
-    moonMat.uniforms['time'].value = 0.00025 * (Date.now() - startTime);
+    moonMat.uniforms['time'].value = 0.000025 * (Date.now() - startTime);
   }
 }

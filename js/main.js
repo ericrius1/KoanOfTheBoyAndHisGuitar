@@ -9,7 +9,7 @@ var line;
 var randFloat = THREE.Math.randFloat;
 var itemsToLoad = 2;
 var shaders = new ShaderLoader('js/shaders');
-var fieldSize = 100;
+var fieldSize = 60;
 var startTime = Date.now();
 function init() {
   clock = new THREE.Clock();
@@ -17,21 +17,19 @@ function init() {
   scene = new THREE.Scene();
 
 
-  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 2000);
-  camera.position.z = 40;
-  camera.position.y = 10;
-  camera.position.x = 5;
+  camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 20000);
+  camera.position.z = 20;
+  camera.position.y = 5;
   camera.lookAt(scene.position);
 
   renderer = new THREE.WebGLRenderer({
     antialias: false
   });
-  renderer.setSize(w, h);
-  renderer.autoClear = false;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x130f13);
   controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-
   document.body.appendChild(renderer.domElement);
+
   field = new Field();
   grass = new Grass(field.getMesh());
   moon = new Moon();
@@ -62,9 +60,6 @@ function loadAudio(uri) {
   return audio;
 }
 
-
-var w = window.innerWidth;
-var h = window.innerHeight;
 
 var canvas = document.createElement('canvas');
 canvas.width = 256;
